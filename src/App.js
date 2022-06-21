@@ -1,9 +1,16 @@
 import "./App.css";
+import Header from "./components/Header";
+import TodoForm from "./components/TodoForm";
+import Head from "./components/Head";
+import TodoItem from "./components/TodoItem";
 
 function App() {
   return (
     <div className="App">
-      <h1>Todo</h1>
+      <Head />
+      <Header />
+      <TodoForm />
+      <TodoItem />
     </div>
   );
 }
