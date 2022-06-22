@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
 import Head from "./components/Head";
-import TodoItem from "./components/TodoItem";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Head />
       <Header />
       <TodoForm />
-      <TodoItem />
+      <TodoList />
     </div>
   );
 }
