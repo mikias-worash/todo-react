@@ -1,17 +1,12 @@
-import React from "react";
 import CompleteButton from "./shared/CompleteButton";
 import TrashButton from "./shared/TrashButton";
 
-function TodoItem() {
+function TodoItem({ todoItem }) {
   return (
-    <div className="todo-container">
-      <ul className="todo-list">
-        <div className="todo" style={{ display: "flex" }}>
-          <li className="todo-item">Wake up</li>
-          <CompleteButton />
-          <TrashButton />
-        </div>
-      </ul>
+    <div className="todo" style={{ display: "flex" }}>
+      <li className="todo-item">{todoItem}</li>
+      <CompleteButton />
+      <TrashButton />
     </div>
   );
 }
