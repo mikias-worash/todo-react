@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useContext } from "react";
+import TodoContext from "../context/TodoContext";
 
-function TodoForm({ todo, handleAdd }) {
+function TodoForm({ handleAdd }) {
   const [text, setText] = useState();
+
+  const { addNewTodo } = useContext(TodoContext);
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -13,12 +17,18 @@ function TodoForm({ todo, handleAdd }) {
       text,
     };
 
-    handleAdd(newTodo);
+    addNewTodo(newTodo);
+    setText("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" className="todo-input" onChange={handleChange} />
+      <input
+        type="text"
+        className="todo-input"
+        onChange={handleChange}
+        value={text}
+      />
       <button className="todo-button" type="submit">
         <i className="fas fa-plus-square"></i>
       </button>

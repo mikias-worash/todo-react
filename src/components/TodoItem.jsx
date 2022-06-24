@@ -1,18 +1,16 @@
-function TodoItem({ todoItem, handleDelete }) {
-  const handleComplete = (item) => {
-    console.log(item + " completed");
-  };
+import { useContext } from "react";
+import TodoContext from "../context/TodoContext";
+
+function TodoItem({ todoItem }) {
+  const { deleteTodo } = useContext(TodoContext);
 
   return (
     <div className="todo" style={{ display: "flex" }}>
       <li className="todo-item">{todoItem.text}</li>
-      <button
-        className="complete-btn"
-        onClick={() => handleComplete(todoItem.id)}
-      >
+      <button className="complete-btn">
         <i className="fas fa-check"></i>
       </button>
-      <button className="trash-btn" onClick={() => handleDelete(todoItem.id)}>
+      <button className="trash-btn" onClick={() => deleteTodo(todoItem.id)}>
         <i className="fas fa-trash"></i>
       </button>
     </div>
