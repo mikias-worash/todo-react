@@ -1,12 +1,19 @@
-function TodoItem({ todoItem }) {
+function TodoItem({ todoItem, handleDelete }) {
+  const handleComplete = (item) => {
+    console.log(item + " completed");
+  };
+
   return (
     <div className="todo" style={{ display: "flex" }}>
-      <li className="todo-item">{todoItem}</li>
-      <button class="complete-btn">
-        <i class="fas fa-check"></i>
+      <li className="todo-item">{todoItem.text}</li>
+      <button
+        className="complete-btn"
+        onClick={() => handleComplete(todoItem.id)}
+      >
+        <i className="fas fa-check"></i>
       </button>
-      <button class="trash-btn">
-        <i class="fas fa-trash"></i>
+      <button className="trash-btn" onClick={() => handleDelete(todoItem.id)}>
+        <i className="fas fa-trash"></i>
       </button>
     </div>
   );

@@ -85,7 +85,7 @@ form button:hover {
   pointer-events: none;
 }
 .complete-btn:hover {
-  background: rgb(52, 112, 52);
+  background: rgb(52, 66, 112);
 }
 
 .complete-btn {

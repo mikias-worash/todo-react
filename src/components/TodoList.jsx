@@ -1,14 +1,15 @@
-import { useState } from "react";
 import TodoItem from "./TodoItem";
 
-function TodoList() {
-  const [todo, setTodo] = useState(["Task 1", "Task 2", "Task 3"]);
-
+function TodoList({ todo, handleDelete }) {
   return (
     <div className="todo-container">
       <ul className="todo-list">
         {todo.map((todoItem) => (
-          <TodoItem todoItem={todoItem} />
+          <TodoItem
+            key={todoItem.text}
+            todoItem={todoItem}
+            handleDelete={handleDelete}
+          />
         ))}
       </ul>
     </div>
