@@ -1,12 +1,13 @@
-import CompleteButton from "./shared/CompleteButton";
-import TrashButton from "./shared/TrashButton";
-
 function TodoItem({ todoItem }) {
   return (
     <div className="todo" style={{ display: "flex" }}>
       <li className="todo-item">{todoItem}</li>
-      <CompleteButton />
-      <TrashButton />
+      <button class="complete-btn">
+        <i class="fas fa-check"></i>
+      </button>
+      <button class="trash-btn">
+        <i class="fas fa-trash"></i>
+      </button>
     </div>
   );
 }
