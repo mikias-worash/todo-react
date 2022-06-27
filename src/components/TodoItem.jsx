@@ -2,12 +2,15 @@ import { useContext } from "react";
 import TodoContext from "../context/TodoContext";
 
 function TodoItem({ todoItem }) {
-  const { deleteTodo } = useContext(TodoContext);
+  const { markTodo, deleteTodo } = useContext(TodoContext);
 
   return (
-    <div className="todo" style={{ display: "flex" }}>
+    <div
+      className={`${todoItem.checked ? "todo completed" : "todo"}`}
+      style={{ display: "flex" }}
+    >
       <li className="todo-item">{todoItem.text}</li>
-      <button className="complete-btn">
+      <button className="complete-btn" onClick={() => markTodo(todoItem)}>
         <i className="fas fa-check"></i>
       </button>
       <button className="trash-btn" onClick={() => deleteTodo(todoItem.id)}>

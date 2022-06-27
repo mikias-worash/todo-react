@@ -18,16 +18,29 @@ export const TodoProvider = ({ children }) => {
   ]);
 
   const deleteTodo = (id) => {
-    console.log(id);
     if (window.confirm("Are you sure you want to delete this task?")) {
       setTodo(todo.filter((item) => item.id !== id));
     }
   };
 
+  const markTodo = (item) => {
+    const newTodo = {
+      id: item.id,
+      text: item.text,
+      checked: !item.checked,
+    };
+
+    setTodo(
+      todo.map((todoItem) =>
+        todoItem.id === item.id ? { ...todoItem, ...newTodo } : todoItem
+      )
+    );
+  };
+
   const addNewTodo = (newTodo) => {
     newTodo.id = uuidv4();
     newTodo.checked = false;
-    setTodo([newTodo, ...todo]);
+    setTodo([...todo, newTodo]);
   };
 
   return (
@@ -36,6 +49,7 @@ export const TodoProvider = ({ children }) => {
         todo,
         deleteTodo,
         addNewTodo,
+        markTodo,
       }}
     >
       {children}
