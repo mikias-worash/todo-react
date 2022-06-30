@@ -21,6 +21,8 @@ function TodoForm({ handleAdd }) {
     setText("");
   };
 
+  const { handleFilter } = useContext(TodoContext);
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -33,10 +35,14 @@ function TodoForm({ handleAdd }) {
         <i className="fas fa-plus-square"></i>
       </button>
       <div className="select">
-        <select name="todos" className="filter-todo">
+        <select
+          name="todos"
+          className="filter-todo"
+          onClick={(e) => handleFilter(e)}
+        >
           <option value="all">All</option>
           <option value="completed">Completed</option>
-          <option value="uncompleted">In-progress</option>
+          <option value="inprogress">In-progress</option>
         </select>
       </div>
     </form>
