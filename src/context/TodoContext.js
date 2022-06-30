@@ -11,13 +11,14 @@ export const TodoProvider = ({ children }) => {
     fetchTodo();
   }, []);
 
+  // Fetch todo data from db
   const fetchTodo = async () => {
     const response = await fetch(`http://localhost:5000/todo?_sort=id`);
-
     const data = await response.json();
     setTodo(data);
   };
 
+  // Delete todo from db
   const deleteTodo = async (id) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       await fetch(`http://localhost:5000/todo/${id}`, { method: "DELETE" });
@@ -25,13 +26,13 @@ export const TodoProvider = ({ children }) => {
     }
   };
 
+  // Mark/unmark todo as completed
   const markTodo = async (item) => {
     const newTodo = {
       id: item.id,
       text: item.text,
       checked: !item.checked,
     };
-
     const response = await fetch(`http://localhost:5000/todo/${item.id}`, {
       method: "PUT",
       headers: {
@@ -39,9 +40,7 @@ export const TodoProvider = ({ children }) => {
       },
       body: JSON.stringify(newTodo),
     });
-
     const data = await response.json();
-
     setTodo(
       todo.map((todoItem) =>
         todoItem.id === item.id ? { ...todoItem, ...data } : todoItem
@@ -49,6 +48,7 @@ export const TodoProvider = ({ children }) => {
     );
   };
 
+  // Add new todo
   const addNewTodo = async (newTodo) => {
     newTodo.checked = false;
     const response = await fetch(`http://localhost:5000/todo`, {
@@ -62,6 +62,7 @@ export const TodoProvider = ({ children }) => {
     setTodo([...todo, data]);
   };
 
+  // Filter todos based on selected value
   const handleFilter = (e) => {
     setSelected(e.target.value);
   };

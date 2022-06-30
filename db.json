@@ -2,21 +2,21 @@
   "todo": [
     {
       "id": 1,
-      "text": "Task 1 from backend",
+      "text": "Task 1",
       "checked": true
     },
     {
       "id": 2,
-      "text": "New Task",
+      "text": "Task 2",
       "checked": false
     },
     {
       "id": 3,
-      "text": "another task",
-      "checked": true
+      "text": "Task 3",
+      "checked": false
     },
     {
-      "text": "something",
+      "text": "Task 4",
       "checked": false,
       "id": 4
     }
