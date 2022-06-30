@@ -1,55 +1,81 @@
 import { createContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
 
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [todo, setTodo] = useState([
-    {
-      id: 1,
-      text: "Task 1 from context",
-      checked: false,
-    },
-    {
-      id: 2,
-      text: "Task 2 from context",
-      checked: false,
-    },
-  ]);
+  const [todo, setTodo] = useState([]);
+  const [selected, setSelected] = useState("all");
 
-  const deleteTodo = (id) => {
+  useEffect(() => {
+    fetchTodo();
+  }, []);
+
+  const fetchTodo = async () => {
+    const response = await fetch(`http://localhost:5000/todo?_sort=id`);
+
+    const data = await response.json();
+    setTodo(data);
+  };
+
+  const deleteTodo = async (id) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
+      await fetch(`http://localhost:5000/todo/${id}`, { method: "DELETE" });
       setTodo(todo.filter((item) => item.id !== id));
     }
   };
 
-  const markTodo = (item) => {
+  const markTodo = async (item) => {
     const newTodo = {
       id: item.id,
       text: item.text,
       checked: !item.checked,
     };
 
+    const response = await fetch(`http://localhost:5000/todo/${item.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTodo),
+    });
+
+    const data = await response.json();
+
     setTodo(
       todo.map((todoItem) =>
-        todoItem.id === item.id ? { ...todoItem, ...newTodo } : todoItem
+        todoItem.id === item.id ? { ...todoItem, ...data } : todoItem
       )
     );
   };
 
-  const addNewTodo = (newTodo) => {
-    newTodo.id = uuidv4();
+  const addNewTodo = async (newTodo) => {
     newTodo.checked = false;
-    setTodo([...todo, newTodo]);
+    const response = await fetch(`http://localhost:5000/todo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTodo),
+    });
+    const data = await response.json();
+    setTodo([...todo, data]);
+  };
+
+  const handleFilter = (e) => {
+    setSelected(e.target.value);
   };
 
   return (
     <TodoContext.Provider
       value={{
         todo,
+        selected,
         deleteTodo,
         addNewTodo,
         markTodo,
+        fetchTodo,
+        handleFilter,
       }}
     >
       {children}
